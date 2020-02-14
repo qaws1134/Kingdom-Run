@@ -1,0 +1,379 @@
+fileFormatVersion: 2
+guid: 12ee1973fd208a045b325aea366c3ca7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7758592900833387733
+    second: Orc (Red)_0
+  - first:
+      213: -1595205308142317465
+    second: Orc (Red)_1
+  - first:
+      213: 6551427338923949823
+    second: Orc (Red)_2
+  - first:
+      213: -3079319424728765111
+    second: Orc (Red)_3
+  - first:
+      213: -2082379694601220092
+    second: Orc (Red)_4
+  - first:
+      213: 4998938162400024880
+    second: Orc (Red)_5
+  - first:
+      213: -8352765253690374651
+    second: Orc (Red)_6
+  - first:
+      213: -76067804303329801
+    second: Orc (Red)_7
+  - first:
+      213: 83463351399491303
+    second: Orc (Red)_8
+  - first:
+      213: -9091965690872684583
+    second: Orc (Red)_9
+  - first:
+      213: 4818570629845449102
+    second: Orc (Red)_10
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Orc (Red)_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 598
+        width: 233
+        height: 293
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abb313d3f99e0914fa60ac693b916cda
+      internalID: 7758592900833387733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_1
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 598
+        width: 174
+        height: 263
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd7775004b414d439d4389f68f2a4b7
+      internalID: -1595205308142317465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_2
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 809
+        width: 62
+        height: 62
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baad7593289746f4f9207e218006d09c
+      internalID: 6551427338923949823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_3
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 609
+        width: 183
+        height: 302
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89546b9d8bd0d874d9b98cd036152682
+      internalID: -3079319424728765111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_4
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 609
+        width: 192
+        height: 302
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e38a018a6e6029d4abac01c7622c9ee9
+      internalID: -2082379694601220092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_5
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 598
+        width: 252
+        height: 173
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9293367e5c823e7418a28c2f1d09c9ba
+      internalID: 4998938162400024880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_6
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 609
+        width: 342
+        height: 102
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8280b4e984dac98498db0cb4dbfce38a
+      internalID: -8352765253690374651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_7
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 118
+        width: 182
+        height: 293
+      alignment: 9
+      pivot: {x: 0.55, y: -0.020865327}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4caeee507935644aabf4f41204bff10
+      internalID: -76067804303329801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_8
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 116
+        width: 192
+        height: 293
+      alignment: 9
+      pivot: {x: 0.48, y: -0.0069552218}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab4d80a05a3cfb847aa2508f91576d62
+      internalID: 83463351399491303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_9
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 118
+        width: 172
+        height: 293
+      alignment: 9
+      pivot: {x: 0.44, y: -0.013910209}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d8ce4c025964a4eb3edd7a48397e68
+      internalID: -9091965690872684583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Orc (Red)_10
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 278
+        width: 72
+        height: 84
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e06db370563aa9d4a9113669beffb106
+      internalID: 4818570629845449102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
