@@ -20,7 +20,7 @@ public class EquipmentStore : MonoBehaviour
         int slotCnt = slotRoot.childCount;
         inventory.SetActive(true);
         printGold();
-
+        
         for (int i = 0; i < slotCnt; i++)
         {
             var slot = slotRoot.GetChild(i).GetComponent<Slot>();   // Slot이라는 컴포넌트를 가져옴

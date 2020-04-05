@@ -10,20 +10,7 @@ public class StickMoveCtrl : MonoBehaviour
     void Update()
     {
         tr.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
-        tr.transform.Rotate(0,0,15);
-    }
-
-    void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.CompareTag("DESTROY"))
-        {
-            Destroy(this.gameObject);
-        }
-    }
-
-    void OnBecameInvisible()
-    {
-        Destroy(this.gameObject);
+        tr.transform.Rotate(0, 0, 15);
     }
 }
  

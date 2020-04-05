@@ -94,11 +94,13 @@ public class PlayerCtrl : MonoBehaviour
         healthfiled.fillAmount = hp / maxHp;
         healthbarBackground.SetActive(true);
 
+        /*
         if (hp <= 0)    // 사망
         {
             S_Camera.VibrateFortime(0.1f); // 카메라 흔들림
             SceneManager.LoadScene("End");
         }
+        */
 
         //방향키 이동
         h = Input.GetAxis("Horizontal");
@@ -137,8 +139,6 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-
-
         if (coll.CompareTag("ENEMY") || coll.CompareTag("ENEMYBULLET"))
         {
             hp--;

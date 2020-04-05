@@ -234,9 +234,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hp: 10
   initHp: 10
-  currentHp: 0
   tr: {fileID: 2505616288279487694}
-  effect: {fileID: 310877076070430522, guid: ade43db14445874419c1dccd7795e768, type: 3}
+  die_effect: {fileID: 310877076070430522, guid: ade43db14445874419c1dccd7795e768,
+    type: 3}
   healthbarBackground: {fileID: 2966187737775048386}
   healthfiled: {fileID: 1123135833319652005}
   Score: 150
@@ -290,7 +290,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &2966187737775048386
 GameObject:
   m_ObjectHideFlags: 0

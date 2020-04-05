@@ -17,6 +17,12 @@ public class RuneManager : MonoBehaviour
     public bool Blue = false;
     public bool Purple = false;
 
+
+
+    public GameObject FirePos1;
+    public GameObject FirePos2;
+
+
     int slotCount = 0;//룬의 슬롯을 카운트를해줌
     public int NowSlot = 0;  //현재위치한 슬롯
     public int Ground_RuneNum = 0;// 땅에 있는 룬갯수 확인
@@ -45,7 +51,7 @@ public class RuneManager : MonoBehaviour
             {
                 RuneOut();  //FIFO 먼저 들어온 룬을 삭제해준다
                 RundEffect(); //획득한 룬효과를 적용
-
+           
                 //  doubleRuneEffect();
             }
         }
@@ -100,12 +106,11 @@ public class RuneManager : MonoBehaviour
 
     }
 
-    void RuneOut()  //2개 이상의 룬을 가졌을 때 룬을 먹게 되면 전자의 룬의 효과를 뺌 
+    void RuneOut()  //2개 이상의 룬을 가졌을 때 룬을 먹게 되면 먼저들어온 룬의 효과를 뺌 
     {
         var PlayerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
         var FireCtrl = GameObject.Find("Player").GetComponent<FireCtrl>();
 
- 
         if (slot[0] == 0)
         {
             PlayerCtrl.dmg -= 1;
@@ -116,13 +121,14 @@ public class RuneManager : MonoBehaviour
         }
         else if (slot[0] == 2)
         {
-            FireCtrl.Bullet_State = (int)FireCtrl.bullet_shot.one_shot_ready;
+            FirePos1.transform.Translate(0.5f, 0, 0);
+            FirePos2.transform.Translate(-0.5f, 0, 0);
+            FireCtrl.Bullet_State = (int)FireCtrl.bullet_shot.one_shot;
         }
         else if (slot[0] == 3)
         {
             PlayerCtrl.speed -= 100f;
         }
-
 
         UISlot[0].Rune[slot[0]].SetActive(false);
 
@@ -132,77 +138,4 @@ public class RuneManager : MonoBehaviour
 
 
     }
-    /*
-    void doubleRuneEffect()
-    {
-        switch (slot[0])
-        {
-            case 1:                 //레드
-                switch (slot[1])
-                {
-                    case 2:          //블루
-                                     //투사체 파괴
-                        break;
-                    case 3:         //옐로
-                                    //범위 증가
-                        break;
-                    case 4:         //퍼플
-                                    //관통
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case 2:             //블루
-                switch (slot[1])
-                {
-                    case 1:
-                        //투사체 파괴
-                        break;
-                    case 3:
-                        //주변 막는 오브젝트 생성
-                        break;
-                    case 4:
-                        //주변 공격 오브젝트 생성
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case 3:         //옐로
-                switch (slot[1])
-                {
-                    case 1:
-                        //범위증가
-                        break;
-                    case 2:
-                        //주변 막는 오브젝트
-                        break;
-                    case 4:
-                        //골드 경험치 1.5배
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case 4: //보라
-                switch (slot[1])
-                {
-                    case 1:
-                        //관통
-                        break;
-                    case 2:
-                        //주변 공격오브젝트
-                        break;
-                    case 3:
-                        //골드 경험치 1.5배
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
-    }
-    */
-
 }

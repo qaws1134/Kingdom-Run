@@ -16,7 +16,6 @@ public class itween2 : MonoBehaviour
         {
             iTween.MoveBy(gameObject,
                     iTween.Hash("y", -1.5f,
-                    // "easeType", "esaeOutElastic",    // 에러남
                     "easeType", iTween.EaseType.easeOutElastic,
                     "speed",10f
                     ));

@@ -5,6 +5,7 @@ using UnityEngine;
 //쉴드
 public class BlueRune : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         var rm = GameObject.Find("Player").GetComponent<RuneManager>();

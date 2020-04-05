@@ -136,7 +136,7 @@ public class RespawnManager2 : MonoBehaviour
             respawn_count++;
             //Debug.Log("respawn_count : " + respawn_count);
 
-            if (spm_num != 0)
+            if (spm_num > 0)
             {
                 if (spm_chk[0] == 0)
                     spm_chk[0] = spm_num;

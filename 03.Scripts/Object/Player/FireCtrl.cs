@@ -23,8 +23,7 @@ public class FireCtrl : MonoBehaviour
     {
         one_shot,
         double_shot_ready,
-        double_shot,
-        one_shot_ready
+        double_shot
     }
     
     public GameObject[] bullet; //각 총알을 담을 배열
@@ -41,20 +40,23 @@ public class FireCtrl : MonoBehaviour
     public AudioClip sfx;
     public AudioSource audioSource;
 
-    
+
+    public bool doubleshot_on = false;
+
+
     float hold_time; //터치 홀드 시간을 저장 할 변수       
     public bool skill_on = false;
     public bool effect_on = true;
-
+    bool skill_ready = false;
 
     //아처의 스킬 애니메이션을 적용 할 변수
     bool archer_ani_on = false;
 
-
+    bool stick_on;
     //마법사 공격을 위한 변수
-    bool stick_on;  
+
     float wizard_charging;
-    bool wizard_ani_start = false;
+    bool wizard_attck_on= false;
 
     bool swiped = false;
 
@@ -68,6 +70,7 @@ public class FireCtrl : MonoBehaviour
         ani = GetComponent<Animator>(); //애니메이션 컴포넌트 
         Vector2 screenSize = new Vector2(Screen.width, Screen.height); //스크린 사이즈를 입력받음
          minSwipeDist = Mathf.Max(screenSize.x, screenSize.y) / 16f; //
+
     }
     private void Update()
     {
@@ -80,8 +83,10 @@ public class FireCtrl : MonoBehaviour
         //테스트를 위한 키보드 입력
         if (Input.GetKey(KeyCode.Space))    // 키보드 스페이스바
         {
-            ani.SetBool("Attack_m", true);
-            Fire();
+
+            w_charging();
+            //ani.SetBool("Attack_m", true);
+            //  Fire();
         }
     }
 
@@ -92,6 +97,7 @@ public class FireCtrl : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) == true)
             {
+                w_charging();
                 mouseDownPos = Input.mousePosition;
                 skill_on = true;
                 swiped = false;
@@ -105,8 +111,10 @@ public class FireCtrl : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0) == true)
             {
+
+
                 if (swiped == true)
-                    onSwipeDectected(swipeDirection);
+                    //onSwipeDectected(swipeDirection);
 
              
                 swiped = true;
@@ -118,6 +126,7 @@ public class FireCtrl : MonoBehaviour
     //모바일 환경일 때
     void processMobileInput()
     {
+
         float cooltime = GameObject.Find("Player").GetComponent<Skill>().skill_cooltime;
 
         //터치 입력이 없고 마법사일 때
@@ -125,12 +134,16 @@ public class FireCtrl : MonoBehaviour
         {
             stay(); //가만히 있을 시 마법사 애니메이션 실행
         }
+
         //터치 입력 시
         if (Input.touchCount > 0)
         {
-            if (IsPointerOverUIObject(Input.GetTouch(Input.touchCount - 1).position) == false)
-            {
-                Touch t = Input.GetTouch(Input.touchCount - 1);
+
+            Touch t = Input.GetTouch(Input.touchCount - 1);
+
+            //공격영역인지 판단
+            if (IsPointerOverUIObject(t.position) == false)
+            {         
                  //Began터치 시작
                 if (t.phase == TouchPhase.Began)
                 {
@@ -141,6 +154,7 @@ public class FireCtrl : MonoBehaviour
                 else if (t.phase == TouchPhase.Stationary)
                 {
                     hold_time += Time.deltaTime;    //hold_time으로 터치한 시간을 세줌
+
                     if (hold_time > 1.0f && cooltime <= 0)  //스킬의 쿨타임이 됐고 터치 유지시간 조건이 맞을 때
                     {
                         //궁수일때 활 시위를 땡긴상태로 유지하는 애니메이션
@@ -155,6 +169,7 @@ public class FireCtrl : MonoBehaviour
                         }
                         if (effect_on)
                         {
+                            skill_ready = true;
                             //스킬을 발동한다는 이펙트를 나타냄
                             for (int i = 0; i < 3; i++)
                                 Instantiate(charge, pos[2].transform.position, Quaternion.identity);
@@ -168,106 +183,110 @@ public class FireCtrl : MonoBehaviour
                     Vector2 currendtTouchPos = new Vector2(t.position.x, t.position.y);//이동중인 현재 위치를 받음
 
                     bool swipeDetected = checkSwipe(touchDownPos, currendtTouchPos); //checkSwipe메서드를 사용해서 직업별 스와이프를 판단
-                    swipeDirection = (currendtTouchPos - touchDownPos).normalized; //방향값을 정규화해서 스와이프 방향을 체크
+                   // swipeDirection = (currendtTouchPos - touchDownPos).normalized; //방향값을 정규화해서 스와이프 방향을 체크
                     if (swipeDetected)  //각 직업별 스와이프가 맞으면 swiped를 true로 바꿔줌
                         swiped = true;
                 }
                 //Ended 터치 끝마쳤을 때
                 else if (t.phase == TouchPhase.Ended)
                 {
-                    //아처 스킬애니메이션이 true일 때 스킬을 발사 
-                    if (archer_ani_on)
+                    //공격영역인지 판단 
+                    if (IsPointerOverUIObject(t.position) == false)
                     {
-                        if (CharacterSelect.selected_character == (int)Select.Archer)        //궁수일때 
+                        if (skill_ready)
                         {
-                            //궁수 스킬 발동 시 애니메이션 동작
-                            ani.SetBool("Skill_Start", true);   
-                            ani.SetBool("Skill_Ready", false);
-                            archer_ani_on = false;
+                            //아처는 스킬애니메이션이 true일 때 스킬을 발사 
+                            if (archer_ani_on)
+                            {
+                                if (CharacterSelect.selected_character == (int)Select.Archer)        //궁수일때 
+                                {
+                                    //궁수 스킬 발동 시 애니메이션 동작
+                                    ani.SetBool("Skill_Start", true);
+                                    ani.SetBool("Skill_Ready", false);
+                                    archer_ani_on = false;
+                                }
+                            }
+                            skill_on = true; // 스킬 스크립트에 넘겨줌
+                            skill_ready = false;
                         }
-                        skill_on = true;
-                    }
-                    if(CharacterSelect.selected_character == (int)Select.Knight         
-                        || CharacterSelect.selected_character == (int)Select.Archer) //기사,궁수일 때
-                    {
-                        //checkswipe()에서 swiped한 상태라고 돌려받으면 총알 발사
-                        if (swiped)
+                        
+
+                        if (CharacterSelect.selected_character == (int)Select.Knight
+                            || CharacterSelect.selected_character == (int)Select.Archer) //기사,궁수일 때
                         {
-                            onSwipeDectected(swipeDirection);     
+                            //checkswipe()에서 swiped한 상태라고 돌려받으면 총알 발사
+                            if (swiped)
+                            {
+                                ani.SetBool("Attack", true);
+                                Fire();
+
+                            }
                         }
-                    }
-                    else if (CharacterSelect.selected_character == (int)Select.Wizard)  //마법사일때 
-                    {
-                        if (wizard_ani_start)
+                        else if (CharacterSelect.selected_character == (int)Select.Wizard)  //마법사일때 
                         {
-                            w_charging();               
+                            w_charging();
                         }
                     }
-                    effect_on = true;
-                    hold_time = 0;
-                    swiped = true;
+                    effect_on = true;   //스킬 이팩트 발동 초기화
+                    hold_time = 0;      //스킬 홀드시간 초기화
+                    swiped = false;     //슬라이드 체크 false로 초기화 
                 }
             }
         }
     }
     void stay() //움직임 판단
     {
-        stick_on = GameObject.Find("JoyStickBase").GetComponent<JoyStick3>().wiza_attack_cancle;
 
-        if (stick_on==false) 
+        //움직이지 않을때
+        if (JoyStick3.Instance.wiza_attack_cancle == false) 
         {
             ani.SetBool("Attack_cancle", false);
-            ani_ready();   //애니시작 함수 -> 한번만 실행 될 수 있도록 시작후 false 로 돌림  차징시간을 샘  
-       
+            ani.SetTrigger("Attack_ready");
+            wizard_charging += Time.deltaTime;
+            wizard_attck_on = true;
         }
         else   
         {
-            wizard_ani_start = false;
-            ani.SetBool("Attack_ready", false);
             ani.SetBool("Attack_cancle", true);
             wizard_charging = 0;
-           
         }
-    }
-
-    void ani_ready() //가만히 있으면 공격 준비 애니메이션을 동작
-    {
-        if (!wizard_ani_start)
-        {
-            ani.SetBool("Attack_ready", true);
-            wizard_ani_start = true;
-        }
-        wizard_charging += Time.deltaTime;
     }
 
     public void w_charging()
     {
-        //차징 시간에 따른 마법사 총알 변동 
-        if (wizard_charging < 1.0f)   
+        var dmg = GameObject.Find("Player").GetComponent<PlayerCtrl>();
+        if (wizard_attck_on)
         {
-            ani.SetBool("Attack_small", true);
-            CharacterSelect.selected_character = (int)Select.Wizard;
-            Fire();
-           
+            //차징 시간에 따른 마법사 총알 변동 
+            if (wizard_charging < 1.0f)
+            {
+                ani.SetTrigger("Attack_small");
+                CharacterSelect.selected_character = (int)Select.Wizard;
+                Fire();
+            }
+            else if (wizard_charging < 2.0f)
+            {
+                ani.SetTrigger("Attack_middle");
+                CharacterSelect.selected_character = (int)Select.Wizard_midle_bullet;
+                dmg.dmg += 0.1f;
+                Fire();
+                CharacterSelect.selected_character = (int)Select.Wizard;
+                dmg.dmg = dmg.initDmg;
+            }
+            else
+            {
+                ani.SetTrigger("Attack_large");
+                CharacterSelect.selected_character = (int)Select.Wizard_large_bullet;
+                bullet[CharacterSelect.selected_character].transform.localScale = new Vector3(0.25f, 0.25f, 0); // 1/10크기로 커짐 시간당
+                bullet[CharacterSelect.selected_character].transform.localScale += new Vector3(wizard_charging / 5f, wizard_charging / 5f, 0); // 1/10크기로 커짐 시간당
+                GameObject.Find("Player").GetComponent<PlayerCtrl>().dmg += 0.1f;
+                Fire();
+                CharacterSelect.selected_character = (int)Select.Wizard;
+                dmg.dmg = dmg.initDmg;
+
+            }
         }
-        else if (wizard_charging < 2.0f)    
-        {
-            ani.SetBool("Attack_middle", true);
-            CharacterSelect.selected_character= (int)Select.Wizard_midle_bullet;
-            Fire();  
-        }
-        else
-        {
-            ani.SetBool("Attack_large", true);
-            CharacterSelect.selected_character = (int)Select.Wizard_large_bullet;
-            bullet[CharacterSelect.selected_character].transform.localScale = new Vector3(0.25f,0.25f,0); // 1/10크기로 커짐 시간당
-            bullet[CharacterSelect.selected_character].transform.localScale += new Vector3(wizard_charging / 5f, wizard_charging / 5f, 0); // 1/10크기로 커짐 시간당
-            Fire();
-           
-        }
-        stick_on = false;
         wizard_charging = 0;
-        wizard_ani_start = false;
     }
 
 
@@ -319,6 +338,7 @@ public class FireCtrl : MonoBehaviour
         return false;
     }
 
+    /*
     //기본 공격을 발사하는 메서드
     void onSwipeDectected(Vector2 swipeDirection)
     {
@@ -326,11 +346,13 @@ public class FireCtrl : MonoBehaviour
         Fire();
         swiped = true;
     }
+    */
 
     //기본 총알과 더블샷총알을 생성하는 메서드
     void Fire()
     {
         audioSource.PlayOneShot(sfx, 0.2f);
+
 
         if (Bullet_State == (int)bullet_shot.one_shot) //기본 공격
         {
@@ -339,6 +361,7 @@ public class FireCtrl : MonoBehaviour
         }
         else if (Bullet_State == (int)bullet_shot.double_shot_ready)  //노랑 룬 등룩(더블샷 룬)
         {
+
             pos[1].SetActive(true);
             pos[0].transform.Translate(-0.5f, 0, 0);
             pos[1].transform.Translate(0.5f, 0, 0);
@@ -352,14 +375,7 @@ public class FireCtrl : MonoBehaviour
             Instantiate(bullet[CharacterSelect.selected_character], pos[0].transform.position, Quaternion.identity);
             Instantiate(bullet[CharacterSelect.selected_character], pos[1].transform.position, Quaternion.identity);
          }
-        else if(Bullet_State == (int)bullet_shot.one_shot_ready)    //노랑 룬 해제(더블샷 룬)
-        {
-            pos[1].SetActive(false);
-            pos[0].transform.Translate(0.5f, 0, 0);
-            pos[1].transform.Translate(-0.5f, 0, 0);
-            Instantiate(bullet[CharacterSelect.selected_character], pos[0].transform.position, Quaternion.identity);
-            Bullet_State = (int)bullet_shot.one_shot;
-        }
+
     }   
 
 }

@@ -9,7 +9,7 @@ public class PurpleRune : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var rm = GameObject.Find("Player").GetComponent<RuneManager>();
+       var rm = GameObject.Find("Player").GetComponent<RuneManager>();
 
         if (other.CompareTag("PLAYER"))
         {

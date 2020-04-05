@@ -69,24 +69,34 @@ public class JoyStick3 : MonoBehaviour
         MoveFlag = true;
         PointerEventData pointerEventData = baseEventData as PointerEventData;
         Vector3 DragPosition = pointerEventData.position;
-        joyVec = (DragPosition - stickFirstPosition).normalized;
+        //joyVec = (DragPosition - stickFirstPosition).normalized;
 
-        float stickDistance = Vector3.Distance(DragPosition, stickFirstPosition);
-        
+        float stickDistance = Vector2.Distance(DragPosition, stickFirstPosition);
+
         //스틱 위치 설정
         if (stickDistance < stickRadius)
+        {
+            joyVec = (DragPosition - stickFirstPosition).normalized;
             smallStick.transform.position = stickFirstPosition + joyVec * stickDistance;
+
+        }
         else
-            smallStick.transform.position = stickFirstPosition + joyVec * stickRadius;
-        
-        Player.eulerAngles = new Vector3(joyVec.y * -5, joyVec.x * 5);
+        {
+            bGStick.transform.Translate(joyVec * 20);   //배경 스틱 이동
+            stickFirstPosition = bGStick.transform.position;    // 배경 스틱의 위치로 스틱 중앙값 초기화 
+            joyVec = (DragPosition - stickFirstPosition).normalized;    //방향값 다시 받아옴
+            smallStick.transform.position = stickFirstPosition + joyVec * stickRadius;  //스몰 스틱 이동 범위는 배경 스틱 지름범위
+        }
+        Player.Translate(new Vector2(joyVec.x * 0.05f, joyVec.y * 0.05f));
+
+        Player.eulerAngles = new Vector2(joyVec.y * -3, joyVec.x * 3);
         wiza_attack_cancle = true;
 
 
     }
     public void Drop()
     {
-        joyVec = Vector3.zero;
+        joyVec = Vector2.zero;
         MoveFlag = false;
         wiza_attack_cancle = false;
     }

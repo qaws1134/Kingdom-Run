@@ -12,22 +12,21 @@ public partial class Special_Enemy_HpCtrl : HpCtrl
      void Update()
     {
         base.Show_Hp_Gage();
-        Kill_enemy();
+       // Kill_enemy();
     }
 
-    new void Kill_enemy()
+    void Kill_enemy()
     {
-
         if (Hp <= 0)
         {
             var ResManager = GameObject.Find("RespawnManager2").GetComponent<RespawnManager2>();
             var pc = GameObject.Find("Player").GetComponent<PlayerCtrl>();
             pc.GetExp(monster_exp); // 몬스터 사망시 플레이어 경험치 증가.
 
-            Droprune();
             GameManager.score += Score;
 
             Instantiate(die_effect, tr.position, Quaternion.identity);
+
             ResManager.enemy_obj.Remove(this.gameObject);   // 적 사망시 리스폰 매니저의 적오브젝트 리스트에서 제거.
 
             if ((int)Random.Range(1, 4) == 1)     // 1~3 중 1일 경우. 즉 33% 확률로 골드 드랍.
@@ -38,23 +37,28 @@ public partial class Special_Enemy_HpCtrl : HpCtrl
             }
 
             int[] enemy_Spawnarray = ResManager.spm_chk;   // 특수 몬스터가 있는지 체크하는 배열을 가져옴
-            if (enemy_Spawnarray[1] != 0)
+            if (enemy_Spawnarray[1] > 0)
             {
-                if (enemy_Spawnarray[0] != 0) enemy_Spawnarray[0]--;
-                else enemy_Spawnarray[1]--;
+                enemy_Spawnarray[1]--;
+                /*
+                if (enemy_Spawnarray[0] != 0)
+                    enemy_Spawnarray[0]--;
+                else 
+                    enemy_Spawnarray[1]--;
+                 */
             }
-            else
+            else if(enemy_Spawnarray[0] > 0)
             {
                 enemy_Spawnarray[0]--;
             }
-
-
             Destroy(this.gameObject);
         }
-
-
     }
-  
+    private void OnDestroy()
+    {
+        Droprune();
+    }
+
     void OnTriggerEnter2D(Collider2D coll)
     {
         var pc = GameObject.Find("Player").GetComponent<PlayerCtrl>();
@@ -62,27 +66,30 @@ public partial class Special_Enemy_HpCtrl : HpCtrl
         if (coll.CompareTag("BULLET"))
         {
             Hp -= pc.dmg;
+            Kill_enemy();
         }
         else if (coll.CompareTag("DESTROY"))
         {
             var ResManager = GameObject.Find("RespawnManager2").GetComponent<RespawnManager2>();   // 리스폰매니저 오브젝트를 참조
+
+            ResManager.enemy_obj.Remove(this.gameObject);   // 적 사망시 리스폰 매니저의 적오브젝트 리스트에서 제거.
+           
             int[] enemy_Spawnarray = ResManager.spm_chk;   // 특수 몬스터가 있는지 체크하는 배열을 가져옴
-            if (enemy_Spawnarray[1] != 0)
+            if (enemy_Spawnarray[1] > 0)
             {
+                enemy_Spawnarray[1]--;
+                /*
                 if (enemy_Spawnarray[0] != 0)
-                {
                     enemy_Spawnarray[0]--;
-                }
-                else
-                {
+                else 
                     enemy_Spawnarray[1]--;
-                }
+                 */
             }
-            else
+            else if (enemy_Spawnarray[0] > 0)
             {
                 enemy_Spawnarray[0]--;
             }
-            ResManager.enemy_obj.Remove(this.gameObject);   // 적 사망시 리스폰 매니저의 적오브젝트 리스트에서 제거.
+
             Destroy(this.gameObject);
         }
     }
@@ -95,8 +102,9 @@ public partial class Special_Enemy_HpCtrl : HpCtrl
         int ran ;
         GameObject selectRune;
 
-        if (rm.Ground_RuneNum < 2 )  //땅에 있는 룬이 2개 이하일 때
+        if (rm.Ground_RuneNum < 2 )  //땅에 있는 룬이 1개 이하일 때
          {
+            rm.Ground_RuneNum++;
             ran = Rune_Check(); //바닥에 있는 룬과 플레이어가 가지고 있는 룬을 검사해서 중복되지 않는 것을 넣음
             selectRune = Runes[ran];        
             
@@ -110,7 +118,7 @@ public partial class Special_Enemy_HpCtrl : HpCtrl
                 //if (Random.Range(0, 10) == 0) // 1/10 확률로 룬을 드랍함
                     Instantiate(selectRune, transform.position, Quaternion.identity);
             }
-            rm.Ground_RuneNum++;     //땅에 있는 룬 갯수를 증가시킴 
+           
         }
 
     }

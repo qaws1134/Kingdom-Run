@@ -24,6 +24,7 @@ public class Slot : MonoBehaviour
     public void SetItem(ItemProperty item)
     {
         this.item = item;
+
         if (item == null)
         {
             image.enabled = false;
@@ -34,6 +35,7 @@ public class Slot : MonoBehaviour
 
         else
         {
+            //상점 아이템 나열
             image.enabled = true;
             text.enabled = true;
             gameObject.name = item.itemName;
@@ -42,10 +44,11 @@ public class Slot : MonoBehaviour
             if (item.price > PlayerPrefs.GetInt("player_gold"))
                 text.color = Color.red;
             text.text = item.price.ToString() + "G";
-            SetSellBtnInteractable(true);
+            SetSellBtnInteractable(true);   //버튼 ui를 켜줌
         }
     }
 
+    //아이템 버퍼에 아이디를 지정 
     public void UseItem()
     {
         Debug.Log("this.item.itemID : " + this.item.itemID);

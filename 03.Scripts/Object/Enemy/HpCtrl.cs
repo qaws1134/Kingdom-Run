@@ -16,6 +16,7 @@ public class HpCtrl : MonoBehaviour
     public GameObject healthbarBackground;
     public Image healthfiled;
 
+    
     /*스코어 변수*/
     public int Score = 0;   //몬스터별 스코어 
 
@@ -43,7 +44,7 @@ public class HpCtrl : MonoBehaviour
         }
     } 
 
-    public void Kill_enemy()
+     void Kill_enemy()
     {
         if (Hp <= 0)
         {
@@ -54,6 +55,7 @@ public class HpCtrl : MonoBehaviour
             GameManager.score += Score;
 
             Instantiate(die_effect, tr.position, Quaternion.identity);
+
             ResManager.enemy_obj.Remove(this.gameObject);   // 적 사망시 리스폰 매니저의 적오브젝트 리스트에서 제거.
 
             if ((int)Random.Range(1, 4) == 1)     // 1~3 중 1일 경우. 즉 33% 확률로 골드 드랍.
